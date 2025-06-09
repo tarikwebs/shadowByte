@@ -1,145 +1,107 @@
-
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ShadowByte – Real Hacker V</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ابوالفضل ایمانی - موزیک پلیر</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
     body {
       margin: 0;
-      overflow: hidden;
-      background: black;
-      font-family: 'Share Tech Mono', monospace;
-      color: #00FF00;
-    }
-    canvas {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-    .container {
-      position: relative;
-      z-index: 1;
-      height: 100vh;
+      font-family: 'Vazir', sans-serif;
+      background: #121212;
+      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      padding: 20px;
+    }
+    .player {
+      background: #1e1e1e;
+      border-radius: 30px;
+      padding: 20px;
+      max-width: 360px;
+      width: 100%;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
+    .album-art {
+      width: 100%;
+      height: 360px;
+      background: url('https://i.imgur.com/oYiTqum.jpg') center/cover;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .track-info {
       text-align: center;
     }
-    .glitch {
-      font-size: 4vw;
-      position: relative;
-      color: #00FF00;
+    .track-title {
+      font-size: 22px;
+      font-weight: bold;
     }
-    .glitch:before, .glitch:after {
-      content: attr(data-text);
-      position: absolute;
-      left: 0;
-      opacity: 0.8;
+    .track-artist {
+      font-size: 16px;
+      color: #aaa;
+      margin-bottom: 20px;
     }
-    .glitch:before { text-shadow: -2px 0 cyan; animation: glitchTop 2s infinite; }
-    .glitch:after { text-shadow: 2px 0 magenta; animation: glitchBottom 3s infinite; }
-    @keyframes glitchTop {
-      0% { clip-path: inset(0 0 47% 0); }
-      5% { clip-path: inset(80% 0 5% 0); }
-      10% { clip-path: inset(0 0 47% 0); }
-    }
-    @keyframes glitchBottom {
-      0% { clip-path: inset(53% 0 0 0); }
-      5% { clip-path: inset(10% 0 80% 0); }
-      10% { clip-path: inset(53% 0 0 0); }
-    }
-    #typed {
-      margin-top: 20px;
-      font-size: 1.2em;
-      min-height: 1.4em;
-    }
-    .links {
-      margin-top: 40px;
-      display: flex;
-      gap: 1.5em;
-    }
-    .links a {
-      padding: 12px 20px;
-      border: 2px solid #00FF00;
-      color: #00FF00;
-      text-decoration: none;
-      position: relative;
-      overflow: hidden;
-    }
-    .links a:hover {
-      background: rgba(0,255,0,0.1);
-      box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00 inset;
-    }
-    .links a::after {
-      content: '';
-      position: absolute;
+    audio {
       width: 100%;
-      height: 2px;
-      background: #00FF00;
-      left: -100%;
-      bottom: 0;
-      transition: left 0.3s ease;
+      margin-bottom: 15px;
     }
-    .links a:hover::after {
-      left: 0;
+    .playlist {
+      margin-top: 30px;
+      width: 100%;
+    }
+    .playlist h3 {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .playlist-item {
+      background: #222;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .playlist-item:hover {
+      background: #333;
     }
   </style>
 </head>
 <body>
-  <canvas id="matrix"></canvas>
-  <div class="container">
-    <div class="glitch" data-text="ShadowByte">ShadowByte</div>
-    <div id="typed"></div>
-    <div class="links">
-      <a href="https://t.me/shadowByte_ll" target="_blank">Telegram</a>
-      <a href="https://rubika.ir/abolfazl_imani1" target="_blank">Rubika</a>
+  <div class="player">
+    <div class="album-art"></div>
+    <div class="track-info">
+      <div class="track-title">تتلو - برزخ</div>
+      <div class="track-artist">ریمیکس غمگین</div>
+    </div>
+    <audio controls id="audio-player">
+      <source src="https://dl.musicsong.ir/music/1402/12/Tataloo%20-%20Barzakh%20(Remix).mp3" type="audio/mp3">
+      مرورگر شما از پخش موزیک پشتیبانی نمی‌کند.
+    </audio>
+    <div class="playlist">
+      <h3>لیست آهنگ‌ها</h3>
+      <div class="playlist-item" onclick="playTrack('تتلو - برزخ', 'ریمیکس غمگین', 'https://dl.musicsong.ir/music/1402/12/Tataloo%20-%20Barzakh%20(Remix).mp3')">
+        🎧 تتلو - برزخ (ریمیکس)
+      </div>
+      <div class="playlist-item" onclick="playTrack('شایع - تنها', 'ریمیکس غمگین', 'https://dl.behmelody.in/1402/11/06/Shayea%20-%20Tanha%20%28Remix%29.mp3')">
+        🎧 شایع - تنها (ریمیکس)
+      </div>
+      <div class="playlist-item" onclick="playTrack('یاس - نامه‌ای به فرزند', 'ریمیکس غمگین', 'https://dl.radianmusic.ir/music/1402/11/Yas%20-%20Name%20Remix.mp3')">
+        🎧 یاس - نامه‌ای به فرزند (ریمیکس)
+      </div>
     </div>
   </div>
 <script>
-  // Matrix Background
-  const canvas = document.getElementById('matrix');
-  const ctx = canvas.getContext('2d');
-  let w = canvas.width = window.innerWidth;
-  let h = canvas.height = window.innerHeight;
-  const cols = 80;
-  const fontSize = w / cols;
-  const rows = h / fontSize;
-  const drops = Array(cols).fill(1);
+    const audio = document.getElementById('audio-player');
+    const trackTitle = document.querySelector('.track-title');
+    const trackArtist = document.querySelector('.track-artist');
 
-  function drawMatrix() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-    ctx.fillRect(0, 0, w, h);
-    ctx.fillStyle = '#0F0';
-    ctx.font = `${fontSize}px monospace`;
-    for (let x = 0; x < drops.length; x++) {
-      const text = String.fromCharCode(0x30A0 + Math.random() * 96);
-      ctx.fillText(text, x * fontSize, drops[x] * fontSize);
-      if (drops[x] * fontSize > h && Math.random() > 0.975) drops[x] = 0;
-      drops[x]++;
+    function playTrack(title, artist, src) {
+      audio.src = src;
+      trackTitle.textContent = title;
+      trackArtist.textContent = artist;
+      audio.play();
     }
-  }
-  setInterval(drawMatrix, 50);
-  window.onresize = () => {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-  };
-
-  // Typewriter text
-  const txt = "من ابوالفضل هستم. هکری مستقل در دنیای امنیت...";
-  let idx = 0;
-  const el = document.getElementById('typed');
-  function type() {
-    if (idx < txt.length) {
-      el.innerHTML += txt[idx++];
-      setTimeout(type, 60);
-    }
-  }
-  setTimeout(type, 1500);
-</script>
+  </script>
 </body>
 </html>
