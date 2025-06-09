@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ShadowByte – Real Hacker V</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      font-family: 'Share Tech Mono', monospace;
+      color: #00FF00;
+    }
+    canvas {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    .container {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .glitch {
+      font-size: 4vw;
+      position: relative;
+      color: #00FF00;
+    }
+    .glitch:before, .glitch:after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      opacity: 0.8;
+    }
+    .glitch:before { text-shadow: -2px 0 cyan; animation: glitchTop 2s infinite; }
+    .glitch:after { text-shadow: 2px 0 magenta; animation: glitchBottom 3s infinite; }
+    @keyframes glitchTop {
+      0% { clip-path: inset(0 0 47% 0); }
+      5% { clip-path: inset(80% 0 5% 0); }
+      10% { clip-path: inset(0 0 47% 0); }
+    }
+    @keyframes glitchBottom {
+      0% { clip-path: inset(53% 0 0 0); }
+      5% { clip-path: inset(10% 0 80% 0); }
+      10% { clip-path: inset(53% 0 0 0); }
+    }
+    #typed {
+      margin-top: 20px;
+      font-size: 1.2em;
+      min-height: 1.4em;
+    }
+    .links {
+      margin-top: 40px;
+      display: flex;
+      gap: 1.5em;
+    }
+    .links a {
+      padding: 12px 20px;
+      border: 2px solid #00FF00;
+      color: #00FF00;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .links a:hover {
+      background: rgba(0,255,0,0.1);
+      box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00 inset;
+    }
+    .links a::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: #00FF00;
+      left: -100%;
+      bottom: 0;
+      transition: left 0.3s ease;
+    }
+    .links a:hover::after {
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+  <div class="container">
+    <div class="glitch" data-text="ShadowByte">ShadowByte</div>
+    <div id="typed"></div>
+    <div class="links">
+      <a href="https://t.me/shadowByte_ll" target="_blank">Telegram</a>
+      <a href="https://rubika.ir/abolfazl_imani1" target="_blank">Rubika</a>
+    </div>
+  </div>
+<script>
+  // Matrix Background
+  const canvas = document.getElementById('matrix');
+  const ctx = canvas.getContext('2d');
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+  const cols = 80;
+  const fontSize = w / cols;
+  const rows = h / fontSize;
+  const drops = Array(cols).fill(1);
+
+  function drawMatrix() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = '#0F0';
+    ctx.font = `${fontSize}px monospace`;
+    for (let x = 0; x < drops.length; x++) {
+      const text = String.fromCharCode(0x30A0 + Math.random() * 96);
+      ctx.fillText(text, x * fontSize, drops[x] * fontSize);
+      if (drops[x] * fontSize > h && Math.random() > 0.975) drops[x] = 0;
+      drops[x]++;
+    }
+  }
+  setInterval(drawMatrix, 50);
+  window.onresize = () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  };
+
+  // Typewriter text
+  const txt = "من ابوالفضل هستم. هکری مستقل در دنیای امنیت...";
+  let idx = 0;
+  const el = document.getElementById('typed');
+  function type() {
+    if (idx < txt.length) {
+      el.innerHTML += txt[idx++];
+      setTimeout(type, 60);
+    }
+  }
+  setTimeout(type, 1500);
+</script>
+</body>
+</html>
