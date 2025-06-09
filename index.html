@@ -1,213 +1,313 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ShadowByte - موزیک پلیر حرفه‌ای</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap');
-    * {
-      box-sizing: border-box;
-      margin: 0; padding: 0;
-      font-family: 'Vazirmatn', sans-serif;
-    }
-    body {
-      background: linear-gradient(135deg, #1e1e2f, #121212);
-      color: #eee;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      user-select: none;
-    }
-    .player {
-      background: #222233cc;
-      border-radius: 25px;
-      width: 350px;
-      box-shadow:
-        0 0 20px #00ffff66,
-        inset 0 0 40px #00ffff33;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 25px 20px;
-    }
-    .cover {
-      width: 280px;
-      height: 280px;
-      border-radius: 25px;
-      background-size: cover;
-      background-position: center;
-      box-shadow:
-        0 0 20px #00ffffbb,
-        inset 0 0 30px #00ffff55;
-      margin-bottom: 20px;
-      transition: background-image 0.5s ease-in-out;
-    }
-    .track-info {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    .track-title {
-      font-size: 22px;
-      font-weight: 700;
-      color: #00ffff;
-      margin-bottom: 6px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .track-artist {
-      font-size: 16px;
-      color: #66ffffcc;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    audio {
-      width: 100%;
-      outline: none;
-      margin-bottom: 15px;
-      filter: drop-shadow(0 0 5px #00ffff88);
-      border-radius: 15px;
-    }
-    .controls {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      margin-bottom: 15px;
-    }
-    button {
-      background: transparent;
-      border: none;
-      color: #00ffff;
-      font-size: 28px;
-      cursor: pointer;
-      transition: color 0.3s ease;
-      user-select: none;
-    }
-    button:hover {
-      color: #00ffffee;
-      filter: drop-shadow(0 0 5px #00ffffcc);
-    }
-    .visitor-count {
-      font-size: 16px;
-      color: #00dddd;
-      text-align: center;
-      margin-bottom: 20px;
-      letter-spacing: 2px;
-    }
-    .footer {
-      font-size: 14px;
-      color: #009999aa;
-      text-align: center;
-      user-select: text;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ShadowByte Music Player</title>
+<style>
+  /* Reset */
+  * {
+    box-sizing: border-box;
+    font-family: "Vazir", sans-serif;
+    margin: 0; padding: 0;
+  }
+  body {
+    background: linear-gradient(135deg, #1e1e2f, #3a3a5a);
+    color: #eee;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header h1 {
+    font-weight: 900;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    color: #ff416c;
+    text-shadow: 0 0 10px #ff416caa;
+  }
+  .contacts {
+    display: flex;
+    gap: 20px;
+  }
+  .contacts a {
+    color: #eee;
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  .contacts a:hover {
+    color: #ff416c;
+  }
+  .contacts a svg {
+    fill: #eee;
+    width: 24px;
+    height: 24px;
+    transition: fill 0.3s ease;
+  }
+  .contacts a:hover svg {
+    fill: #ff416c;
+  }
+
+  /* Music player container */
+  #player {
+    margin-top: 40px;
+    background: #2e2e4d;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 0 30px #ff416c66;
+    max-width: 700px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #player h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: #ff5e81;
+    text-shadow: 0 0 5px #ff5e81bb;
+  }
+
+  /* Playlist */
+  ul.playlist {
+    list-style: none;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+    border-radius: 10px;
+    background: #252544;
+    box-shadow: inset 0 0 10px #ff416c44;
+  }
+  ul.playlist li {
+    cursor: pointer;
+    padding: 15px 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    border-bottom: 1px solid #444466;
+    transition: background 0.3s ease;
+  }
+  ul.playlist li:last-child {
+    border-bottom: none;
+  }
+  ul.playlist li:hover {
+    background: #ff416c22;
+  }
+  ul.playlist li.active {
+    background: #ff416c66;
+  }
+  .cover {
+    width: 55px;
+    height: 55px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 0 10px #ff416caa;
+  }
+  .info {
+    flex-grow: 1;
+    color: #fff;
+  }
+  .info .title {
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .info .artist {
+    font-size: 0.85rem;
+    color: #ffb6c1cc;
+  }
+
+  /* Audio controls */
+  #controls {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+  }
+  button.control-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #ff416c;
+    font-size: 2rem;
+    transition: color 0.3s ease;
+  }
+  button.control-btn:hover {
+    color: #ff6f91;
+  }
+
+  /* Progress bar */
+  #progress-container {
+    background: #444466;
+    height: 8px;
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 25px;
+    cursor: pointer;
+    box-shadow: inset 0 0 5px #ff416caa;
+  }
+  #progress {
+    background: #ff416c;
+    height: 8px;
+    width: 0%;
+    border-radius: 10px;
+    transition: width 0.1s linear;
+  }
+
+  /* Visitor count */
+  #visitorCount {
+    text-align: center;
+    margin-top: 35px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #ff758f;
+    text-shadow: 0 0 10px #ff416caa;
+  }
+
+  /* About */
+  #about {
+    margin-top: 50px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    border-radius: 20px;
+    padding: 25px;
+    color: #fff;
+    box-shadow: 0 0 30px #ff416caa;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-align: center;
+    font-family: "Vazir", sans-serif;
+  }
+
+  #about span {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #ffd5db;
+  }
+
+  /* Scrollbar for playlist */
+  ul.playlist::-webkit-scrollbar {
+    width: 8px;
+  }
+  ul.playlist::-webkit-scrollbar-track {
+    background: #252544;
+    border-radius: 10px;
+  }
+  ul.playlist::-webkit-scrollbar-thumb {
+    background: #ff416caa;
+    border-radius: 10px;
+  }
+
+</style>
 </head>
 <body>
-  <div class="player" role="region" aria-label="موزیک پلیر ShadowByte">
-    <div class="cover" id="cover" style="background-image: url('https://i.imgur.com/4NZ6uLY.jpg')"></div>
-    <div class="track-info">
-      <div class="track-title" id="title">Amir Tataloo x Ali Sorena x Yas x Mahdyar</div>
-      <div class="track-artist" id="artist">غم گرفته همه کوچه‌هامونو (Remix)</div>
-    </div>
-    <audio id="audio" controls preload="metadata" autoplay>
-      <source src="https://musictaj.musitraf.com/song403/bhr/Amir%20Tataloo%20x%20Ali%20Sorena%20x%20Yas%20x%20Mahdyar%20-%20Gham%20Gerefte%20Hame%20KoocheHaye%20Maro%20(Remix).mp3" type="audio/mpeg" />
-      مرورگر شما از پخش موزیک پشتیبانی نمی‌کند.
-    </audio>
-    <div class="controls">
-      <button id="prev" aria-label="آهنگ قبلی">&#9664;</button>
-      <button id="next" aria-label="آهنگ بعدی">&#9654;</button>
-    </div>
-    <div class="visitor-count" id="visitorCount">تعداد بازدیدکنندگان: 2025</div>
-    <div class="footer">ساخته شده توسط ابوالفضل ایمانی</div>
+
+<header>
+  <h1>ShadowByte</h1>
+  <div class="contacts">
+    <a href="https://t.me/shadowByte_ll" target="_blank" title="تلگرام">
+      <svg viewBox="0 0 24 24"><path d="M9.5 14.5l.9 4.2c1.3 0 1.9-.6 2.6-1.3l6-5.8c.3-.3-.1-.5-.5-.3l-7.4 4.7-2-1.9c-.1 0-.1 0 0 0zM3.5 12c0-.1 0-.2.1-.3L18 6.7c.6-.3 1.1.2.8.8l-4 9.1c-.3.7-1.1.8-1.8.5l-5-2.7-1.5-.9c-.1-.1-.1-.2-.1-.3z"/></svg>
+      تلگرام
+    </a>
+    <a href="https://rubika.ir/abolfazl_imani1" target="_blank" title="روبیکا">
+      <svg viewBox="0 0 24 24"><path d="M12 2L1 7l11 5 9-4.1V17h2V7l-11-5zm9.1 8.4l-2 1 2 1.1-2 1 2 1.1-2 1 2 1.1V10.4z"/></svg>
+      روبیکا
+    </a>
+  </div>
+</header>
+
+<section id="player">
+  <h2>پلی‌لیست موسیقی</h2>
+  <ul class="playlist" id="playlist">
+    <!-- Playlist items inserted by JS -->
+  </ul>
+
+  <div id="controls">
+    <button class="control-btn" id="prevBtn" title="آهنگ قبلی">⏮️</button>
+    <button class="control-btn" id="playPauseBtn" title="پخش/مکث">▶️</button>
+    <button class="control-btn" id="nextBtn" title="آهنگ بعدی">⏭️</button>
   </div>
 
-  <script>
-    const tracks = [
-      {
-        title: "Amir Tataloo x Ali Sorena x Yas x Mahdyar",
-        artist: "غم گرفته همه کوچه‌هامونو (Remix)",
-        cover: "https://i.imgur.com/4NZ6uLY.jpg",
-        src: "https://musictaj.musitraf.com/song403/bhr/Amir%20Tataloo%20x%20Ali%20Sorena%20x%20Yas%20x%20Mahdyar%20-%20Gham%20Gerefte%20Hame%20KoocheHaye%20Maro%20(Remix).mp3"
-      },
-      {
-        title: "Tataloo x Khalvat x Shayea",
-        artist: "خار (Remix)",
-        cover: "https://i.imgur.com/qNt4oTh.jpg",
-        src: "https://musictaj.musitraf.com/song403/bhr/Tataloo%20x%20Khalvat%20x%20Shayea%20-%20Khaar%20(Remix).mp3"
-      },
-      {
-        title: "Ey Zamin",
-        artist: " - ",
-        cover: "https://i.imgur.com/FQqEIEt.jpg",
-        src: "https://dlmain.gandommusic.ir/mp3/3/Ey%20Zamin%20%28%20GandomMusic.ir%20%29.mp3"
-      },
-      {
-        title: "Hezaro Yek Shab",
-        artist: "Erfan Tahmasbi",
-        cover: "https://i.imgur.com/AWhu1Aj.jpg",
-        src: "https://dls.musics-fa.com/song/alibz/dlswm/Erfan%20Tahmasbi%20-%20Hezaro%20Yek%20Shab%20(320).mp3"
-      },
-      {
-        title: "Gharibe",
-        artist: "Ashvan",
-        cover: "https://i.imgur.com/G24CTYA.jpg",
-        src: "https://irsv.upmusics.com/dlw/Ashvan%20-%20Gharibe%20(320).mp3"
-      },
-      {
-        title: "نامشخص",
-        artist: "طرفداری",
-        cover: "https://i.imgur.com/8E5yNjH.jpg",
-        src: "https://ts19.tarafdari.com/contents/user895206/content-sound/4_6032791298245663312.mp3"
-      },
-      {
-        title: "Yar Jonim",
-        artist: "Saeed Mohamadi",
-        cover: "https://i.imgur.com/pGkLd0O.jpg",
-        src: "https://nicmusic.musitraf.com/nicmusic/032/039/Saeed%20Mohamadi%20-%20Yar%20Jonim.mp3"
-      }
-    ];
+  <div id="progress-container" title="میزان پیشرفت">
+    <div id="progress"></div>
+  </div>
+</section>
 
-    let currentIndex = 0;
+<div id="visitorCount">
+  تعداد بازدیدکنندگان: <span id="visitorNumber">در حال بارگذاری...</span>
+</div>
 
-    const audio = document.getElementById("audio");
-    const title = document.getElementById("title");
-    const artist = document.getElementById("artist");
-    const cover = document.getElementById("cover");
-    const visitorCount = document.getElementById("visitorCount");
+<section id="about">
+  ساخته شده توسط ابوالفضل ایمانی  
+  <span>لورم ایپسوم متن ساختگی برای زیبایی بیشتر و پر کردن فضا</span>
+</section>
 
-    function loadTrack(index) {
-      const track = tracks[index];
-      title.textContent = track.title;
-      artist.textContent = track.artist;
-      cover.style.backgroundImage = `url('${track.cover}')`;
-      audio.src = track.src;
-      audio.play();
+<audio id="audio" preload="metadata"></audio>
+
+<script>
+  // پلی لیست آهنگ‌ها
+  const tracks = [
+    {
+      title: "Gham Gerefte Hame KoocheHaye Maro (Remix)",
+      artist: "Amir Tataloo x Ali Sorena x Yas x Mahdyar",
+      src: "https://musictaj.musitraf.com/song403/bhr/Amir%20Tataloo%20x%20Ali%20Sorena%20x%20Yas%20x%20Mahdyar%20-%20Gham%20Gerefte%20Hame%20KoocheHaye%20Maro%20(Remix).mp3",
+      cover: "https://i.scdn.co/image/ab67616d0000b273f1b792904553b82f378b810b"
+    },
+    {
+      title: "Khaar (Remix)",
+      artist: "Tataloo x Khalvat x Shayea",
+      src: "https://musictaj.musitraf.com/song403/bhr/Tataloo%20x%20Khalvat%20x%20Shayea%20-%20Khaar%20(Remix).mp3",
+      cover: "https://i.scdn.co/image/ab67616d0000b273b1f39e2297396f682da29c0a"
+    },
+    {
+      title: "Ey Zamin",
+      artist: "GandomMusic.ir",
+      src: "https://dlmain.gandommusic.ir/mp3/3/Ey%20Zamin%20%28%20GandomMusic.ir%20%29.mp3",
+      cover: "https://i.scdn.co/image/ab67616d0000b2735f7f3d5c61d5e76db3b7c9a0"
+    },
+    {
+      title: "Hezaro Yek Shab",
+      artist: "Erfan Tahmasbi",
+      src: "https://dls.musics-fa.com/song/alibz/dlswm/Erfan%20Tahmasbi%20-%20Hezaro%20Yek%20Shab%20(320).mp3",
+      cover: "https://i.scdn.co/image/ab67616d0000b27350dfd8d77f0b230fd1c9927f"
+    },
+    {
+      title: "Gharibe",
+      artist: "Ashvan",
+      src: "https://irsv.upmusics.com/dlw/Ashvan%20-%20Gharibe%20(320).mp3",
+      cover: "https://i.scdn.co/image/ab67616d0000b273b8de2fda9044e5671db0cc3e"
+    },
+    {
+      title: "Saeed Mohamadi - Yar Jonim",
+      artist: "Saeed Mohamadi",
+      src: "https://nicmusic.musitraf.com/nicmusic/032/039/Saeed%20Mohamadi%20-%20Yar%20Jonim.mp3",
+      cover: "https://i.scdn.co/image/ab67616d0000b273fcd6d084c9a093f1263ad52d"
     }
+  ];
 
-    document.getElementById("prev").addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
-      loadTrack(currentIndex);
-    });
-
-    document.getElementById("next").addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % tracks.length;
-      loadTrack(currentIndex);
-    });
-
-    // بارگذاری اولین ترک
-    loadTrack(currentIndex);
-
-    // شمارنده بازدید (اعداد نمونه، جایگزین با کد شمارنده خودت)
-    // تو میتونی این کد رو با کد waust.at جایگزین کنی برای شمارش آنلاین واقعی:
-    // <script id="_wauy84">var _wau = _wau || []; _wau.push(["dynamic", "1jqd5sqjdh", "y84", "c4302bffffff", "small"]);</script><script async src="//waust.at/d.js"></script>
-    // برای دمو من عدد ۲۰۲۵ رو ثابت گذاشتم
-
-    // اگر خواستی من میتونم شمارنده واقعی رو هم اضافه کنم، فقط بگو.
-  </script>
-</body>
-</html>
+  const audio = document.getElementById("audio");
+  const playlistEl = document.getElementById("playlist");
+  const playPauseBtn = document.getElementById("playPauseBtn");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const progressContainer = document.getElementById("progress-container");
+  const progress = document.getElementById("progress");
+  const visitorNumber
