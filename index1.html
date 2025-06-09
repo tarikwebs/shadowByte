@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ShadowByte Music Player</title>
+<style>
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Vazir', Tahoma, sans-serif;
+  }
+  body {
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    color: #eee;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+    color: #ffd369;
+    text-shadow: 0 0 10px #ffd369a0;
+  }
+  header p {
+    font-size: 1rem;
+    color: #ddd;
+  }
+  main {
+    width: 100%;
+    max-width: 450px;
+    background: rgba(40, 34, 59, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 20px #ffd369a0;
+  }
+  .about {
+    background: #302f44;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    text-align: center;
+    color: #ccc;
+  }
+  .music-player {
+    background: #1f1c2c;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: inset 0 0 10px #111;
+  }
+  .now-playing {
+    text-align: center;
+    margin-bottom: 12px;
+    color: #ffd369;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  .player-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  .btn {
+    background: #382f59;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 50%;
+    color: #ffd369;
+    cursor: pointer;
+    font-size: 1.3rem;
+    box-shadow: 0 0 8px #ffd36988;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .btn:hover {
+    background: #ffd369;
+    color: #3a2c5a;
+  }
+  .playlist {
+    max-height: 200px;
+    overflow-y: auto;
+    border-top: 1px solid #444;
+    padding-top: 10px;
+  }
+  .playlist-item {
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 6px;
+    color: #ccc;
+    transition: background 0.3s ease;
+  }
+  .playlist-item:hover {
+    background: #ffd36933;
+  }
+  .playlist-item.active {
+    background: #ffd369aa;
+    color: #1f1c2c;
+    font-weight: bold;
+  }
+  audio {
+    display: none;
+  }
+  .equalizer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 40px;
+    margin-bottom: 15px;
+    gap: 4px;
+  }
+  .bar {
+    width: 4px;
+    height: 10px;
+    background: #ffd369;
+    animation: bounce 1.2s infinite ease-in-out;
+    animation-delay: calc(var(--i) * 0.15s);
+    border-radius: 2px;
+  }
+  @keyframes bounce {
+    0%, 100% {height: 10px; opacity: 0.3;}
+    50% {height: 30px; opacity: 1;}
+  }
+  footer {
+    margin-top: 25px;
+    color: #aaa;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+  a.socials {
+    color: #ffd369;
+    margin: 0 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  a.socials:hover {
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>ShadowByte Music Player</h1>
+  <p>ساخته شده توسط ابوالفضل ایمانی</p>
+</header>
+<main>
+  <section class="about">
+    این پلیر شامل چند آهنگ ریمیکس غمگین از خوانندگان فارسی است. از موزیک لذت ببرید و در صفحه بمانید.
+  </section>
+  <section class="music-player">
+    <div class="now-playing">منتخب: <span id="track-title">در حال انتخاب...</span></div>
+    <div class="equalizer" aria-hidden="true">
+      <div class="bar" style="--i:0"></div>
+      <div class="bar" style="--i:1"></div>
+      <div class="bar" style="--i:2"></div>
+      <div class="bar" style="--i:3"></div>
+      <div class="bar" style="--i:4"></div>
+      <div class="bar" style="--i:5"></div>
+      <div class="bar" style="--i:6"></div>
+      <div class="bar" style="--i:7"></div>
+    </div>
+    <div class="player-controls">
+      <button class="btn" id="prev" title="قبلی">&#9664;</button>
+      <button class="btn" id="play" title="پخش">&#9658;</button>
+      <button class="btn" id="pause" title="توقف" style="display:none;">&#10074;&#10074;</button>
+      <button class="btn" id="next" title="بعدی">&#9654;</button>
+    </div>
+    <audio id="audio-player"></audio>
+    <div class="playlist" id="playlist"></div>
+  </section>
+</main>
+<footer>
+  <p>ساخته شده توسط <a href="https://rubika.ir/abolfazl_imani1" target="_blank" class="socials">ابوالفضل ایمانی</a> | 
+     <a href="https://t.me/shadowByte_ll" target="_blank" class="socials">تلگرام</a> | 
+     <a href="https://rubika.ir/abolfazl_imani1" target="_blank" class="socials">روبیکا</a>
+  </p>
+</footer>
+<script>
+const tracks = [
+  {
+    title: "ریمیکس غمگین ۱ - تتلو",
+    url: "https://dl.dropboxusercontent.com/s/dkl7vpoe7rqh3wl/remix1.mp3"
+  },
+  {
+    title: "ریمیکس غمگین ۲ - شایع",
+    url: "https://dl.dropboxusercontent.com/s/5e46lpl5gtyz8s1/remix2.mp3"
+  },
+  {
+    title: "ریمیکس غمگین ۳ - حمید صفت",
+    url: "https://dl.dropboxusercontent.com/s/owqlgqw4s54ur1x/remix3.mp3"
+  }
+];
+
+const audioPlayer = document.getElementById('audio-player');
+const trackTitle = document.getElementById('track-title');
+const playlistEl = document.getElementById('playlist');
+const playBtn = document.getElementById('play');
+const pauseBtn = document.getElementById('pause');
+const prevBtn = document.getElementById('prev');
+const nextBtn = document.getElementById('next');
+
+let currentTrackIndex = 0;
+let isPlaying = false;
+
+function loadTrack(index) {
+  const track = tracks[index];
+  audioPlayer.src = track.url;
+  trackTitle.textContent = track.title;
+  highlightActiveTrack();
+}
+
+function playTrack() {
+  audioPlayer.play();
+  isPlaying = true;
+  playBtn.style.display = 'none';
+  pauseBtn.style.display = 'inline-block';
+}
+
+function pauseTrack() {
+  audioPlayer.pause();
+  isPlaying = false;
+  playBtn.style.display = 'inline-block';
+  pauseBtn.style.display = 'none';
+}
+
+function prevTrack() {
+  currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+  loadTrack(currentTrackIndex);
+  playTrack();
+}
+
+function nextTrack() {
+  currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+  loadTrack(currentTrackIndex);
+  playTrack();
+}
+
+function highlightActiveTrack() {
+  Array.from(playlistEl.children).forEach((el, i) => {
+    if (i === currentTrackIndex) {
+      el.classList.add('active');
+    } else {
+      el.classList.remove('active');
+    }
+  });
+}
+
+function buildPlaylist() {
+  tracks.forEach((track, index) => {
+    const div = document.createElement('div');
+    div.textContent = track.title;
+    div.classList.add('playlist-item');
+    div.addEventListener('click', () => {
+      currentTrackIndex = index;
+      loadTrack(currentTrackIndex);
+      playTrack();
+    });
+    playlistEl.appendChild(div);
+  });
+}
+
+playBtn.addEventListener('click', playTrack);
+pauseBtn.addEventListener('click', pauseTrack);
+prevBtn.addEventListener('click', prevTrack);
+nextBtn.addEventListener('click', nextTrack);
+
+audioPlayer.addEventListener('ended', nextTrack);
+
+window.onload = () => {
+  buildPlaylist();
+  loadTrack(currentTrackIndex);
+};
+</script>
+</body>
+</html>
