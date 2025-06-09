@@ -3,217 +3,138 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ShadowByte Music Player</title>
+<title>ShadowByte 2025 - موزیک پلیر حرفه‌ای</title>
 <style>
-  /* Reset */
+  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
   * {
     box-sizing: border-box;
-    font-family: "Vazir", sans-serif;
-    margin: 0; padding: 0;
+    user-select: none;
   }
   body {
-    background: linear-gradient(135deg, #1e1e2f, #3a3a5a);
+    margin: 0;
+    font-family: 'Vazirmatn', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     color: #eee;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
+    min-height: 100vh;
   }
   header {
+    padding: 15px 30px;
+    background: rgba(0,0,0,0.7);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 2px solid #2ef7ff;
   }
   header h1 {
-    font-weight: 900;
-    font-size: 2rem;
-    letter-spacing: 2px;
-    color: #ff416c;
-    text-shadow: 0 0 10px #ff416caa;
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: 0.1rem;
+    color: #2ef7ff;
   }
-  .contacts {
-    display: flex;
-    gap: 20px;
-  }
-  .contacts a {
-    color: #eee;
+  nav a {
+    color: #2ef7ff;
     text-decoration: none;
+    margin-left: 20px;
     font-weight: 600;
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 1rem;
     transition: color 0.3s ease;
   }
-  .contacts a:hover {
-    color: #ff416c;
-  }
-  .contacts a svg {
-    fill: #eee;
-    width: 24px;
-    height: 24px;
-    transition: fill 0.3s ease;
-  }
-  .contacts a:hover svg {
-    fill: #ff416c;
+  nav a:hover {
+    color: #00ffc3;
   }
 
-  /* Music player container */
-  #player {
-    margin-top: 40px;
-    background: #2e2e4d;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 0 30px #ff416c66;
-    max-width: 700px;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  #player h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: 800;
-    font-size: 1.8rem;
-    color: #ff5e81;
-    text-shadow: 0 0 5px #ff5e81bb;
-  }
-
-  /* Playlist */
-  ul.playlist {
-    list-style: none;
-    max-height: 300px;
-    overflow-y: auto;
-    padding-right: 10px;
-    border-radius: 10px;
-    background: #252544;
-    box-shadow: inset 0 0 10px #ff416c44;
-  }
-  ul.playlist li {
-    cursor: pointer;
-    padding: 15px 20px;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    border-bottom: 1px solid #444466;
-    transition: background 0.3s ease;
-  }
-  ul.playlist li:last-child {
-    border-bottom: none;
-  }
-  ul.playlist li:hover {
-    background: #ff416c22;
-  }
-  ul.playlist li.active {
-    background: #ff416c66;
-  }
-  .cover {
-    width: 55px;
-    height: 55px;
-    border-radius: 10px;
-    object-fit: cover;
-    box-shadow: 0 0 10px #ff416caa;
-  }
-  .info {
-    flex-grow: 1;
-    color: #fff;
-  }
-  .info .title {
-    font-weight: 700;
-    font-size: 1.1rem;
-  }
-  .info .artist {
-    font-size: 0.85rem;
-    color: #ffb6c1cc;
-  }
-
-  /* Audio controls */
-  #controls {
-    margin-top: 25px;
+  main {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 25px;
+    padding: 30px 20px;
   }
-  button.control-btn {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: #ff416c;
-    font-size: 2rem;
-    transition: color 0.3s ease;
-  }
-  button.control-btn:hover {
-    color: #ff6f91;
-  }
-
-  /* Progress bar */
-  #progress-container {
-    background: #444466;
-    height: 8px;
-    width: 100%;
-    border-radius: 10px;
-    margin-top: 25px;
-    cursor: pointer;
-    box-shadow: inset 0 0 5px #ff416caa;
-  }
-  #progress {
-    background: #ff416c;
-    height: 8px;
-    width: 0%;
-    border-radius: 10px;
-    transition: width 0.1s linear;
-  }
-
-  /* Visitor count */
-  #visitorCount {
-    text-align: center;
-    margin-top: 35px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: #ff758f;
-    text-shadow: 0 0 10px #ff416caa;
-  }
-
-  /* About */
-  #about {
-    margin-top: 50px;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  .player-container {
+    background: rgba(0,0,0,0.65);
     border-radius: 20px;
-    padding: 25px;
-    color: #fff;
-    box-shadow: 0 0 30px #ff416caa;
+    box-shadow: 0 0 25px #00ffc3aa;
+    max-width: 450px;
+    width: 100%;
+    padding: 30px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .player-title {
+    font-size: 1.4rem;
     font-weight: 700;
-    font-size: 1.2rem;
     text-align: center;
-    font-family: "Vazir", sans-serif;
+    color: #00ffc3;
+    letter-spacing: 0.1rem;
+  }
+  audio {
+    width: 100%;
+    outline: none;
+    border-radius: 10px;
+    background: #222;
+  }
+  ul.track-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 220px;
+    overflow-y: auto;
+    border-radius: 12px;
+    background: #111a22;
+    box-shadow: inset 0 0 10px #00ffc366;
+  }
+  ul.track-list li {
+    padding: 12px 15px;
+    border-bottom: 1px solid #004d40;
+    cursor: pointer;
+    color: #8af2ff;
+    transition: background 0.3s ease;
+  }
+  ul.track-list li:hover,
+  ul.track-list li.active {
+    background: #00ffc3;
+    color: #00332b;
+    font-weight: 700;
   }
 
-  #about span {
-    display: block;
-    margin-top: 10px;
+  footer {
+    background: #000a0f;
+    padding: 25px 20px;
+    text-align: center;
+    color: #0ff;
+    font-weight: 700;
+    letter-spacing: 0.15rem;
+    position: relative;
+    user-select: text;
+  }
+  footer .creator {
     font-size: 0.9rem;
-    font-weight: 400;
-    color: #ffd5db;
+    color: #00ffc3;
+    margin-bottom: 12px;
   }
-
-  /* Scrollbar for playlist */
-  ul.playlist::-webkit-scrollbar {
-    width: 8px;
+  footer .visit-counter {
+    margin-top: 8px;
   }
-  ul.playlist::-webkit-scrollbar-track {
-    background: #252544;
-    border-radius: 10px;
-  }
-  ul.playlist::-webkit-scrollbar-thumb {
-    background: #ff416caa;
-    border-radius: 10px;
+  footer .shadowbyte-2025 {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 5rem;
+    font-weight: 900;
+    color: #00ffc3aa;
+    user-select: none;
+    pointer-events: none;
+    font-family: 'Vazirmatn', sans-serif;
+    letter-spacing: 0.3rem;
+    text-shadow:
+      0 0 10px #00ffc3,
+      0 0 20px #00ffc3,
+      0 0 30px #00ffc3,
+      0 0 40px #00ffc3;
   }
 
 </style>
@@ -222,92 +143,103 @@
 
 <header>
   <h1>ShadowByte</h1>
-  <div class="contacts">
-    <a href="https://t.me/shadowByte_ll" target="_blank" title="تلگرام">
-      <svg viewBox="0 0 24 24"><path d="M9.5 14.5l.9 4.2c1.3 0 1.9-.6 2.6-1.3l6-5.8c.3-.3-.1-.5-.5-.3l-7.4 4.7-2-1.9c-.1 0-.1 0 0 0zM3.5 12c0-.1 0-.2.1-.3L18 6.7c.6-.3 1.1.2.8.8l-4 9.1c-.3.7-1.1.8-1.8.5l-5-2.7-1.5-.9c-.1-.1-.1-.2-.1-.3z"/></svg>
-      تلگرام
-    </a>
-    <a href="https://rubika.ir/abolfazl_imani1" target="_blank" title="روبیکا">
-      <svg viewBox="0 0 24 24"><path d="M12 2L1 7l11 5 9-4.1V17h2V7l-11-5zm9.1 8.4l-2 1 2 1.1-2 1 2 1.1-2 1 2 1.1V10.4z"/></svg>
-      روبیکا
-    </a>
-  </div>
+  <nav>
+    <a href="https://t.me/shadowByte_ll" target="_blank" rel="noopener noreferrer">تلگرام</a>
+    <a href="https://rubika.ir/abolfazl_imani1" target="_blank" rel="noopener noreferrer">روبیکا</a>
+  </nav>
 </header>
 
-<section id="player">
-  <h2>پلی‌لیست موسیقی</h2>
-  <ul class="playlist" id="playlist">
-    <!-- Playlist items inserted by JS -->
-  </ul>
+<main>
+  <section class="player-container" aria-label="موزیک پلیر حرفه‌ای">
+    <div class="player-title">پلی‌لیست هفته‌ای - آهنگ‌های غمگین ریمیکس</div>
+    <audio id="audioPlayer" controls preload="none" style="border-radius:12px;"></audio>
+    <ul id="trackList" class="track-list" tabindex="0" aria-label="لیست آهنگ‌ها">
+      <!-- لیست آهنگ‌ها به صورت جاوااسکریپت اضافه میشه -->
+    </ul>
+  </section>
+</main>
 
-  <div id="controls">
-    <button class="control-btn" id="prevBtn" title="آهنگ قبلی">⏮️</button>
-    <button class="control-btn" id="playPauseBtn" title="پخش/مکث">▶️</button>
-    <button class="control-btn" id="nextBtn" title="آهنگ بعدی">⏭️</button>
+<footer>
+  <div class="creator">ساخته شده توسط ابوالفضل ایمانی</div>
+  
+  <div id="wauCounter" class="visit-counter" aria-live="polite">
+    <!-- شمارنده بازدید Waust اینجا نمایش داده می‌شود -->
+    <script id="_wauy84">
+      var _wau = _wau || [];
+      _wau.push(["dynamic", "1jqd5sqjdh", "y84", "c4302bffffff", "small"]);
+    </script>
+    <script async src="//waust.at/d.js"></script>
   </div>
-
-  <div id="progress-container" title="میزان پیشرفت">
-    <div id="progress"></div>
-  </div>
-</section>
-
-<div id="visitorCount">
-  تعداد بازدیدکنندگان: <span id="visitorNumber">در حال بارگذاری...</span>
-</div>
-
-<section id="about">
-  ساخته شده توسط ابوالفضل ایمانی  
-  <span>لورم ایپسوم متن ساختگی برای زیبایی بیشتر و پر کردن فضا</span>
-</section>
-
-<audio id="audio" preload="metadata"></audio>
+  
+  <div class="shadowbyte-2025" aria-hidden="true">2025</div>
+</footer>
 
 <script>
-  // پلی لیست آهنگ‌ها
   const tracks = [
     {
-      title: "Gham Gerefte Hame KoocheHaye Maro (Remix)",
-      artist: "Amir Tataloo x Ali Sorena x Yas x Mahdyar",
-      src: "https://musictaj.musitraf.com/song403/bhr/Amir%20Tataloo%20x%20Ali%20Sorena%20x%20Yas%20x%20Mahdyar%20-%20Gham%20Gerefte%20Hame%20KoocheHaye%20Maro%20(Remix).mp3",
-      cover: "https://i.scdn.co/image/ab67616d0000b273f1b792904553b82f378b810b"
+      title: "Amir Tataloo x Ali Sorena x Yas x Mahdyar - Gham Gerefte Hame KoocheHaye Maro (Remix)",
+      url: "https://musictaj.musitraf.com/song403/bhr/Amir%20Tataloo%20x%20Ali%20Sorena%20x%20Yas%20x%20Mahdyar%20-%20Gham%20Gerefte%20Hame%20KoocheHaye%20Maro%20(Remix).mp3"
     },
     {
-      title: "Khaar (Remix)",
-      artist: "Tataloo x Khalvat x Shayea",
-      src: "https://musictaj.musitraf.com/song403/bhr/Tataloo%20x%20Khalvat%20x%20Shayea%20-%20Khaar%20(Remix).mp3",
-      cover: "https://i.scdn.co/image/ab67616d0000b273b1f39e2297396f682da29c0a"
+      title: "Tataloo x Khalvat x Shayea - Khaar (Remix)",
+      url: "https://musictaj.musitraf.com/song403/bhr/Tataloo%20x%20Khalvat%20x%20Shayea%20-%20Khaar%20(Remix).mp3"
     },
     {
-      title: "Ey Zamin",
-      artist: "GandomMusic.ir",
-      src: "https://dlmain.gandommusic.ir/mp3/3/Ey%20Zamin%20%28%20GandomMusic.ir%20%29.mp3",
-      cover: "https://i.scdn.co/image/ab67616d0000b2735f7f3d5c61d5e76db3b7c9a0"
+      title: "Ey Zamin (GandomMusic.ir)",
+      url: "https://dlmain.gandommusic.ir/mp3/3/Ey%20Zamin%20%28%20GandomMusic.ir%20%29.mp3"
     },
     {
-      title: "Hezaro Yek Shab",
-      artist: "Erfan Tahmasbi",
-      src: "https://dls.musics-fa.com/song/alibz/dlswm/Erfan%20Tahmasbi%20-%20Hezaro%20Yek%20Shab%20(320).mp3",
-      cover: "https://i.scdn.co/image/ab67616d0000b27350dfd8d77f0b230fd1c9927f"
+      title: "Erfan Tahmasbi - Hezaro Yek Shab (320)",
+      url: "https://dls.musics-fa.com/song/alibz/dlswm/Erfan%20Tahmasbi%20-%20Hezaro%20Yek%20Shab%20(320).mp3"
     },
     {
-      title: "Gharibe",
-      artist: "Ashvan",
-      src: "https://irsv.upmusics.com/dlw/Ashvan%20-%20Gharibe%20(320).mp3",
-      cover: "https://i.scdn.co/image/ab67616d0000b273b8de2fda9044e5671db0cc3e"
+      title: "Ashvan - Gharibe (320)",
+      url: "https://irsv.upmusics.com/dlw/Ashvan%20-%20Gharibe%20(320).mp3"
+    },
+    {
+      title: "Unknown Track (Tarafdari)",
+      url: "https://ts19.tarafdari.com/contents/user895206/content-sound/4_6032791298245663312.mp3"
     },
     {
       title: "Saeed Mohamadi - Yar Jonim",
-      artist: "Saeed Mohamadi",
-      src: "https://nicmusic.musitraf.com/nicmusic/032/039/Saeed%20Mohamadi%20-%20Yar%20Jonim.mp3",
-      cover: "https://i.scdn.co/image/ab67616d0000b273fcd6d084c9a093f1263ad52d"
+      url: "https://nicmusic.musitraf.com/nicmusic/032/039/Saeed%20Mohamadi%20-%20Yar%20Jonim.mp3"
     }
   ];
 
-  const audio = document.getElementById("audio");
-  const playlistEl = document.getElementById("playlist");
-  const playPauseBtn = document.getElementById("playPauseBtn");
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
-  const progressContainer = document.getElementById("progress-container");
-  const progress = document.getElementById("progress");
-  const visitorNumber
+  const audioPlayer = document.getElementById('audioPlayer');
+  const trackList = document.getElementById('trackList');
+
+  function setActive(index) {
+    // پاک کردن همه active ها
+    Array.from(trackList.children).forEach((li, i) => {
+      li.classList.toggle('active', i === index);
+    });
+  }
+
+  function playTrack(index) {
+    audioPlayer.src = tracks[index].url;
+    audioPlayer.play();
+    setActive(index);
+  }
+
+  // اضافه کردن لیست آهنگ‌ها به صفحه
+  tracks.forEach((track, index) => {
+    const li = document.createElement('li');
+    li.textContent = track.title;
+    li.tabIndex = 0;
+    li.addEventListener('click', () => playTrack(index));
+    li.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        playTrack(index);
+      }
+    });
+    trackList.appendChild(li);
+  });
+
+  // شروع با اولین آهنگ
+  playTrack(0);
+</script>
+
+</body>
+</html>
