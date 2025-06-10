@@ -1,135 +1,208 @@
-<!DOCTYPE html>
-<html lang="fa">
+<!DOCTYPE html><html lang="fa">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShadowByte | 2025</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShadowByte Music</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Tahoma', sans-serif;
-      background: #121212;
-      color: #fff;
+    * {
       margin: 0;
       padding: 0;
-      text-align: center;
-    }
-    header {
-      padding: 20px;
-    }
-    h1 {
-      font-size: 26px;
-    }
-    input {
-      padding: 10px;
-      border-radius: 6px;
-      width: 80%;
-      margin-bottom: 20px;
-      font-size: 16px;
-      border: none;
-      outline: none;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      padding: 10px;
-      margin: 5px;
-      background: #1e1e1e;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    li:hover {
-      background: #333;
-    }
-    audio {
-      margin-top: 20px;
-      width: 90%;
-    }
-    footer {
-      margin-top: 40px;
-      font-size: 14px;
-      color: #aaa;
-    }
-    .links {
-      margin: 10px 0;
-    }
-    .links a {
-      color: #00bfff;
-      text-decoration: none;
-      margin: 0 10px;
-    }
+      box-sizing: border-box;
+      font-family: 'Vazirmatn', sans-serif;
+    }body {
+  background-color: #0f0f0f;
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+header {
+  background: #1a1a1a;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header h1 {
+  font-size: 2rem;
+  color: #00ffe7;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav a {
+  color: #ccc;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: #00ffe7;
+}
+
+main {
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+.track {
+  background: #1c1c1c;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.track h3 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.track audio {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.btn-download {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #00ffe7;
+  color: #000;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.btn-download:hover {
+  background-color: #00c2b3;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #1a1a1a;
+  color: #aaa;
+}
+
+.social {
+  margin-top: 10px;
+}
+
+.social a {
+  color: #00ffe7;
+  margin: 0 5px;
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  main {
+    padding: 20px 10px;
+  }
+}
+
   </style>
 </head>
 <body>
   <header>
-    <h1>🎧 ShadowByte Music Player</h1>
-    <p>ساخته شده توسط ابوالفضل ایمانی | 2025</p>
-    <div class="links">
-      <a href="https://t.me/shadowByte_ll" target="_blank">تلگرام</a> |
-      <a href="https://rubika.ir/abolfazl_imani1" target="_blank">روبیکا</a>
-    </div>
-  </header>
+    <h1>ShadowByte Music</h1>
+    <nav>
+      <a href="#tracks">آهنگ‌ها</a>
+      <a href="#about">درباره ما</a>
+      <a href="#support">پشتیبانی</a>
+    </nav>
+  </header>  <main>
+    <section id="tracks">
+      <h2>🎵 لیست آهنگ‌ها</h2><div class="track">
+    <h3>غم گرفته همه کوچه‌های ما (ریمیکس)</h3>
+    <audio controls>
+      <source src="https://musictaj.musitraf.com/song403/bhr/Amir%20Tataloo%20x%20Ali%20Sorena%20x%20Yas%20x%20Mahdyar%20-%20Gham%20Gerefte%20Hame%20KoocheHaye%20Maro%20(Remix).mp3" type="audio/mpeg">
+    </audio>
+    <a href="https://musictaj.musitraf.com/song403/bhr/Amir%20Tataloo%20x%20Ali%20Sorena%20x%20Yas%20x%20Mahdyar%20-%20Gham%20Gerefte%20Hame%20KoocheHaye%20Maro%20(Remix).mp3" class="btn-download" download>دانلود</a>
+    <div>بازدید: <span id="counter1">0</span></div>
+  </div>
 
-  <input type="text" id="search" placeholder="جستجوی آهنگ..." onkeyup="filterSongs()"/>
+  <div class="track">
+    <h3>خرم نکو - حسین جدکی</h3>
+    <audio controls>
+      <source src="https://dl.baharmusics.com/403/8/Hossien%20Jodaki%20-%20Kharam%20Nako.mp3" type="audio/mpeg">
+    </audio>
+    <a href="https://dl.baharmusics.com/403/8/Hossien%20Jodaki%20-%20Kharam%20Nako.mp3" class="btn-download" download>دانلود</a>
+    <div>بازدید: <span id="counter2">0</span></div>
+  </div>
 
-  <ul id="playlist"></ul>
+  <div class="track">
+    <h3>الو - محمد امیری</h3>
+    <audio controls>
+      <source src="https://irsv.upmusics.com/dlw/Mohammad%20Amiri%20%E2%80%93%20Alo%20(320).mp3" type="audio/mpeg">
+    </audio>
+    <a href="https://irsv.upmusics.com/dlw/Mohammad%20Amiri%20%E2%80%93%20Alo%20(320).mp3" class="btn-download" download>دانلود</a>
+    <div>بازدید: <span id="counter3">0</span></div>
+  </div>
 
-  <audio id="audioPlayer" controls autoplay></audio>
+  <div class="track">
+    <h3>حال من خوب بود - محمد امیری</h3>
+    <audio controls>
+      <source src="https://irsv.upmusics.com/AliBZ/Mohammad%20Amiri%20-%20Haleman%20Khob%20Bod%20(320).mp3" type="audio/mpeg">
+    </audio>
+    <a href="https://irsv.upmusics.com/AliBZ/Mohammad%20Amiri%20-%20Haleman%20Khob%20Bod%20(320).mp3" class="btn-download" download>دانلود</a>
+    <div>بازدید: <span id="counter4">0</span></div>
+  </div>
 
-  <footer>
-    <p>ShadowByte | 2025</p>
-    <div id="visitor-counter">
-      <script id="_wauy84">var _wau = _wau || []; _wau.push(["dynamic", "1jqd5sqjdh", "y84", "c4302bffffff", "small"]);</script>
-      <script async src="//waust.at/d.js"></script>
-    </div>
-  </footer>
+  <div class="track">
+    <h3>آفی - محمد امیری</h3>
+    <audio controls>
+      <source src="https://irsv.upmusics.com/AliBZ/Mohammad%20Amiri%20%E2%80%93%20Afee%20(320).mp3" type="audio/mpeg">
+    </audio>
+    <a href="https://irsv.upmusics.com/AliBZ/Mohammad%20Amiri%20%E2%80%93%20Afee%20(320).mp3" class="btn-download" download>دانلود</a>
+    <div>بازدید: <span id="counter5">0</span></div>
+  </div>
 
-  <script>
-    const songs = [
-      { title: "غم گرفته همه کوچه‌هامون", url: "https://musictaj.musitraf.com/song403/bhr/Amir%20Tataloo%20x%20Ali%20Sorena%20x%20Yas%20x%20Mahdyar%20-%20Gham%20Gerefte%20Hame%20KoocheHaye%20Maro%20(Remix).mp3" },
-      { title: "خار - تتلو x خلسه x شایع", url: "https://musictaj.musitraf.com/song403/bhr/Tataloo%20x%20Khalvat%20x%20Shayea%20-%20Khaar%20(Remix).mp3" },
-      { title: "ای زمین", url: "https://dlmain.gandommusic.ir/mp3/3/Ey%20Zamin%20%28%20GandomMusic.ir%20%29.mp3" },
-      { title: "هزار و یک شب - عرفان طهماسبی", url: "https://dls.musics-fa.com/song/alibz/dlswm/Erfan%20Tahmasbi%20-%20Hezaro%20Yek%20Shab%20(320).mp3" },
-      { title: "غریبه - اشوان", url: "https://irsv.upmusics.com/dlw/Ashvan%20-%20Gharibe%20(320).mp3" },
-      { title: "SOUND: طرفداری", url: "https://ts19.tarafdari.com/contents/user895206/content-sound/4_6032791298245663312.mp3" },
-      { title: "یار جونیم - سعید محمدی", url: "https://nicmusic.musitraf.com/nicmusic/032/039/Saeed%20Mohamadi%20-%20Yar%20Jonim.mp3" },
-      { title: "التماس - مهیار خلیل‌زاده", url: "https://aod.musiciom.ir/musics/04/03/Mahyar%20Khalilzadeh%20-%20Eltemas%20-%20320.mp3?host=musicsweb.ir" },
-      { title: "قشنگ‌ترین خطا - راغب", url: "https://aod.musiciom.ir/musics/1404/03/Ragheb%20%20Ghashang%20Tarin%20Khata.mp3?host=musicsweb.ir" },
-      { title: "هیچی نگو - امیر رشوند", url: "https://aod.musiciom.ir/musics/04/03/Amir%20Rashvand%20-%20Hichi%20Nago%20-%20320.mp3?host=musicsweb.ir" }
-    ];
+</section>
 
-    const playlist = document.getElementById("playlist");
-    const audioPlayer = document.getElementById("audioPlayer");
+<section id="about">
+  <h2>📖 درباره ما</h2>
+  <p>پروژه ShadowByte یک آرشیو موسیقی برای علاقه‌مندان به موزیک‌های خاص است. این سایت توسط ابوالفضل ایمانی ساخته شده و به‌صورت رایگان منتشر شده است.</p>
+</section>
 
-    function loadSongs() {
-        songs.forEach((song, index) => {
-            const li = document.createElement("li");
-            li.textContent = song.title;
-            li.onclick = () => {
-                audioPlayer.src = song.url;
-                audioPlayer.play();
-            };
-            playlist.appendChild(li);
-        });
+<section id="support">
+  <h2>📬 پشتیبانی</h2>
+  <p>برای تماس با ما، می‌توانید در شبکه‌های اجتماعی زیر پیام دهید:</p>
+  <div class="social">
+    <a href="https://t.me/shadowByte_ll" target="_blank">تلگرام</a> |
+    <a href="https://rubika.ir/abolfazl_imani1" target="_blank">روبیکا</a>
+  </div>
+</section>
+
+  </main>  <footer>
+    ساخته شده توسط ابوالفضل ایمانی - 2025
+  </footer>  <script>
+    function setupCounter(id, key) {
+      const el = document.getElementById(id);
+      let count = parseInt(localStorage.getItem(key)) || 0;
+      count++;
+      localStorage.setItem(key, count);
+      el.textContent = count;
     }
 
-    function filterSongs() {
-        const input = document.getElementById("search").value.toLowerCase();
-        playlist.innerHTML = "";
-        songs.filter(song => song.title.toLowerCase().includes(input)).forEach(song => {
-            const li = document.createElement("li");
-            li.textContent = song.title;
-            li.onclick = () => {
-                audioPlayer.src = song.url;
-                audioPlayer.play();
-            };
-            playlist.appendChild(li);
-        });
-    }
-
-    window.onload = loadSongs;
-  </script>
-</body>
+    setupCounter("counter1", "song1_count");
+    setupCounter("counter2", "song2_count");
+    setupCounter("counter3", "song3_count");
+    setupCounter("counter4", "song4_count");
+    setupCounter("counter5", "song5_count");
+  </script></body>
 </html>
